@@ -38,21 +38,6 @@ void initEntrepot(Entrepot *e){
     e->nombre_rangees=0;
     //comment initialiser matrice nulle ?
 }
-
-void afficheZone(Zone *z){
-    printf("%d nombre d'alle zone\n" , z->alle);
-    printf("%d nombre de rangées zone \n" , z->range);
-    printf("%d nombre de produits zone \n", z->nbrProd);
-    int i = 0; 
-    while(i<20){
-        if(z->reference[i].reference!=0){
-            printf("%d produit reference dans zone \n", z->reference[i].reference);
-        
-        }
-        i++;
-    }    
-}
-
 void afficheProduit(Produit *p){
     printf("%d nombre d'allées produit \n",p->allee);
     printf("%d nombre de produits \n" ,p->produits);
@@ -64,6 +49,21 @@ void afficheProduit(Produit *p){
         i++;
     }
 }
+void afficheZone(Zone *z){
+    printf("%d nombre d'alle zone\n" , z->alle);
+    printf("%d nombre de rangées zone \n" , z->range);
+    printf("%d nombre de produits zone \n", z->nbrProd);
+    int i = 0; 
+    while(i<20){
+        if(z->reference[i].reference!=0){
+            afficheProduit(&z->reference[i]);
+        
+        }
+        i++;
+    }    
+}
+
+
 
 void afficheEntrepot(Entrepot *e){
     printf("%d nombre de produits entrepot \n",e->nombre_produits);
@@ -81,13 +81,6 @@ void afficheEntrepot(Entrepot *e){
         i++;
     }
     int w = 0;
-    while(w<5000){
-        if(e->produits[w].allee!=0){
-            afficheProduit(&e->produits[w]);
-        }
-        
-        w++;
-    }
 }
 
 
@@ -100,7 +93,7 @@ void ajouteProduit(Produit *p, Zone *z, Entrepot *e){
     while(z->reference[j].reference!=p->reference){
         j++;
     }
-    e->produits[0]=z->reference[0];
+    e->produits[i]=z->reference[j];
 }
 
 
@@ -116,11 +109,18 @@ int main(){
     a.rangee=10;
     a.reference=10;
     a.produits=10;
+    Produit c;
+    c.allee=11;
+    strcpy(c.nom,"allo");
+    c.rangee=1122222;
+    c.reference=123333;
+    c.produits=1000000;
     Zone b;
     b.alle=10;
     b.range=11;
     b.nbrProd=3;
     b.reference[0]=a;
+    //b.reference[1]=c;
     //afficheZone(&b);
     //afficheProduit(&a);
     initEntrepot(&z);
@@ -130,6 +130,7 @@ int main(){
     z.nombre_rangees=6;
     //z.produits[0]=a;
     ajouteProduit(&a,&b,&z);
+    //ajouteProduit(&c,&b,&z);
     afficheEntrepot(&z);
 
 
