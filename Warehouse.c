@@ -39,6 +39,7 @@ void initEntrepot(Entrepot *e){
     //comment initialiser matrice nulle ?
 }
 void afficheProduit(Produit *p){
+    printf("----PRODUIT------- \n");
     printf("%d nombre d'allées produit \n",p->allee);
     printf("%d nombre de produits \n" ,p->produits);
     printf("%d nombre de rangée produit \n" , p->rangee);
@@ -50,6 +51,7 @@ void afficheProduit(Produit *p){
     }
 }
 void afficheZone(Zone *z){
+    printf("----ZONE------- \n");
     printf("%d nombre d'alle zone\n" , z->alle);
     printf("%d nombre de rangées zone \n" , z->range);
     printf("%d nombre de produits zone \n", z->nbrProd);
@@ -57,15 +59,17 @@ void afficheZone(Zone *z){
     while(i<20){
         if(z->reference[i].reference!=0){
             afficheProduit(&z->reference[i]);
-        
+            printf("\n");
         }
         i++;
     }    
+    printf("\n");
 }
 
 
 
 void afficheEntrepot(Entrepot *e){
+    printf("----ENTREPOT-------\n");
     printf("%d nombre de produits entrepot \n",e->nombre_produits);
     printf("%d nombre d'allées entrepot \n",e->nombre_allees);
     printf("%d nombre de rangées entrepot \n",e->nombre_rangees);
@@ -98,7 +102,24 @@ void ajouteProduit(Produit *p, Zone *z, Entrepot *e){
 
 
 
+void supprimeProduit(Produit *p, Zone *z, Entrepot *e){
+    int j =0;
+    while(e->produits[j].reference!=p->reference){
+         
+        ++j;
+    }
+   
+    int i = 0;
+    while(e->produits[i].allee!=0){
+        
+        ++i;
+    }
+    printf("\n %d \n", e->produits[0].allee);
+    for(int z=j;z<i;++z){
+        e->produits[z]=e->produits[z+1];
+    }
 
+}
 
 
 int main(){
@@ -120,7 +141,7 @@ int main(){
     b.range=11;
     b.nbrProd=3;
     b.reference[0]=a;
-    //b.reference[1]=c;
+    b.reference[1]=c;
     //afficheZone(&b);
     //afficheProduit(&a);
     initEntrepot(&z);
@@ -128,9 +149,12 @@ int main(){
     z.nombre_allees=3;
     z.nombre_produits=4;
     z.nombre_rangees=6;
-    //z.produits[0]=a;
-    ajouteProduit(&a,&b,&z);
-    //ajouteProduit(&c,&b,&z);
+    //ajouteProduit(&a,&b,&z);
+    //b.reference[1]=c;
+    //z.produits[1]=c;
+    //afficheZone(&b);
+    ajouteProduit(&c,&b,&z);
+    supprimeProduit(&c,&b,&z);
     afficheEntrepot(&z);
 
 
