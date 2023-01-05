@@ -4,8 +4,8 @@
 
 #define nomMax 20
 #define prodmax 5000
-#define MaxAlles 500
-#define Maxrangee 500
+#define MaxAlles 50
+#define Maxrangee 50
 typedef struct{
     int reference;
     int allee;
